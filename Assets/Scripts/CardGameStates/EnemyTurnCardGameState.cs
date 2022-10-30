@@ -8,6 +8,8 @@ public class EnemyTurnCardGameState : CardGameState
     public static event Action EnemyTurnBegan;
     public static event Action EnemyTurnEnded;
 
+    int enemyCardTotal = 0;
+
     [SerializeField] float pauseDuration = 1.5f;
 
     public override void Enter()
@@ -30,7 +32,11 @@ public class EnemyTurnCardGameState : CardGameState
 
         Debug.Log("enemy performs action");
         EnemyTurnEnded?.Invoke();
-        StateMachine.ChangeState<PlayerTurnCardGameState>();
+
+        if(enemyCardTotal > 20)
+            StateMachine.ChangeState<RoundWinState>();
+        else
+            StateMachine.ChangeState<PlayerTurnCardGameState>();
     }
 
 }

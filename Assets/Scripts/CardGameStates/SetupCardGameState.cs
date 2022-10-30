@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class SetupCardGameState : CardGameState
 {
-    [SerializeField] int startingCardNumber = 10;
-    [SerializeField] int numberOfPlayers = 2;
+    
 
     bool activated = false;
 

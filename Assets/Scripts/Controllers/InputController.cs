@@ -10,12 +10,22 @@ public class InputController : MonoBehaviour
     public event Action PressedLeft = delegate{};
     public event Action PressedRight = delegate{};
 
+    public event Action EndTurn = delegate{};
+    public event Action PressedStand = delegate{};
+
+    public event Action PressWin = delegate{};
+    public event Action PressLose = delegate{};
+
     void Update()
     {
         DetectConfirm();
         DetectCancel();
         DetectLeft();
         DetectRight();
+        DetectEndTurn();
+        DetectStand();
+        DetectWin();
+        DetectLose();
     }
 
     private void DetectRight()
@@ -34,7 +44,7 @@ public class InputController : MonoBehaviour
         }
     }
 
-    private void DetectConfirm()
+    private void DetectCancel()
     {
         if(Input.GetKeyDown(KeyCode.Escape))
         {
@@ -42,11 +52,43 @@ public class InputController : MonoBehaviour
         }
     }
 
-    private void DetectCancel()
+    private void DetectConfirm()
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
             PressedConfirm?.Invoke();
+        }
+    }
+
+    private void DetectEndTurn()
+    {
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            EndTurn?.Invoke();
+        }
+    }
+
+    private void DetectStand()
+    {
+        if(Input.GetKeyDown(KeyCode.S))
+        {
+            PressedStand?.Invoke();
+        }
+    }
+
+    private void DetectWin()
+    {
+        if(Input.GetKeyDown(KeyCode.W))
+        {
+            PressWin?.Invoke();
+        }
+    }
+
+    private void DetectLose()
+    {
+        if(Input.GetKeyDown(KeyCode.L))
+        {
+            PressLose?.Invoke();
         }
     }
 
