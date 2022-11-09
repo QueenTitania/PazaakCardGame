@@ -11,6 +11,7 @@ public class SetupCardGameState : CardGameState
     public override void Enter()
     {
         Debug.Log("entering");
+        GameObject.Find("Deck").GetComponent<DeckManager>().Shuffle();
         activated = false;
     }
 

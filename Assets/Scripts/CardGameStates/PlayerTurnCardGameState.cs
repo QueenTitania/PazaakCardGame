@@ -5,10 +5,13 @@ using UnityEngine.UI;
 
 public class PlayerTurnCardGameState : CardGameState
 {
+    [SerializeField] GameObject playerTurnUI = null;
     [SerializeField] Text playerTurnTextUI = null;
     int playerCardTotal = 0;
 
     int playerTurnCount = 0;
+
+    public UserHand playerHand;
 
     bool playerWin = false;
     bool playerLose = false;
@@ -16,39 +19,61 @@ public class PlayerTurnCardGameState : CardGameState
 
     public override void Enter()
     {
-        Debug.Log("enter player turn");
-        playerTurnTextUI.gameObject.SetActive(true);
+        playerStand = false;
+        //Debug.Log("enter player turn");
+        playerTurnUI.gameObject.SetActive(true);
 
         playerTurnCount++;
         playerTurnTextUI.text = "Player turn count: " + playerTurnCount.ToString();
 
+        playerHand.GetCard();
+
         //StateMachine.Input.PressedConfirm += OnPressedConfirm;
-        StateMachine.Input.EndTurn += OnEndTurn;
+        /*StateMachine.Input.EndTurn += OnEndTurn;
         StateMachine.Input.PressedStand += OnStand;
         StateMachine.Input.PressWin += OnWin;
-        StateMachine.Input.PressLose += OnLose;
+        StateMachine.Input.PressLose += OnLose;*/
         
     }
 
     public override void Tick()
     {
         if(playerStand)
+        {
             StateMachine.ChangeState<EnemyTurnCardGameState>();
+        }
+            
 
     }
 
     public override void Exit()
     {
-        playerTurnTextUI.gameObject.SetActive(false);
+        playerTurnUI.gameObject.SetActive(false);
         Debug.Log("exiting player turn");
+        
 
         //StateMachine.Input.PressedConfirm -= OnPressedConfirm;
-        StateMachine.Input.EndTurn -= OnEndTurn;
+        /*StateMachine.Input.EndTurn -= OnEndTurn;
         StateMachine.Input.PressedStand -= OnStand;
         StateMachine.Input.PressWin -= OnWin;
-        StateMachine.Input.PressLose -= OnLose;
+        StateMachine.Input.PressLose -= OnLose;*/
     }
 
+    public void EndTurn()
+    {
+        //Debug.Log("attempt to enter enemy turn");
+        if(playerCardTotal > 20)
+            StateMachine.ChangeState<RoundLoseState>();
+        else
+            StateMachine.ChangeState<EnemyTurnCardGameState>();
+    }
+
+    public void SetPlayerStand(bool stand)
+    {
+        playerStand = stand;
+    }
+
+    /*
     void OnEndTurn()
     {
         //Debug.Log("attempt to enter enemy turn");
@@ -72,5 +97,7 @@ public class PlayerTurnCardGameState : CardGameState
     {
         StateMachine.ChangeState<RoundLoseState>();
     }
+    */
+    
     
 }

@@ -8,6 +8,8 @@ public class EnemyTurnCardGameState : CardGameState
     public static event Action EnemyTurnBegan;
     public static event Action EnemyTurnEnded;
 
+    public UserHand opponentHand;
+
     int enemyCardTotal = 0;
 
     [SerializeField] float pauseDuration = 1.5f;
@@ -16,6 +18,8 @@ public class EnemyTurnCardGameState : CardGameState
     {
         Debug.Log("enter enemy turn");
         EnemyTurnBegan?.Invoke();
+
+        opponentHand.GetCard();
 
         StartCoroutine(EnemyThinkingRoutine(pauseDuration));
     }
