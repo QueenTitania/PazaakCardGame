@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class CardScript : MonoBehaviour
 {
-    private int value = 0;
+    public int value = 0;
 
     public int GetCardValue()
     {

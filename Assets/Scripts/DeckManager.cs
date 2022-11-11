@@ -5,7 +5,7 @@ using UnityEngine;
 public class DeckManager : MonoBehaviour
 {
     public Sprite[] cardSprites;
-    int[] cardValues = new int[41];
+    int[] cardValues = new int[40];
 
     int currentIndex;
     
@@ -19,9 +19,12 @@ public class DeckManager : MonoBehaviour
         int num = 0;
         for(int i=0; i < cardSprites.Length; i++)
         {
-            num = i;
+            num = i+1;
             num %= 10;
-            cardValues[i] = num++;
+            if(num == 0)
+                num = 10;
+            cardValues[i] = num;
+            num++;
         }
         currentIndex = 1;
     }
@@ -47,6 +50,15 @@ public class DeckManager : MonoBehaviour
         cardScript.SetCardValue(cardValues[currentIndex]);
         currentIndex++;
         return cardScript.GetCardValue();
+    }
+    
+    public GameObject DealCard(GameObject cardPrefab, GameObject user)
+    {
+        GameObject cardInstance = Instantiate(cardPrefab, user.transform , false);
+        cardPrefab.GetComponent<CardScript>().SetSprite(cardSprites[currentIndex]);
+        cardPrefab.GetComponent<CardScript>().SetCardValue(cardValues[currentIndex]);
+        currentIndex++;
+        return cardInstance;
     }
 
     public Sprite GetCardBack()

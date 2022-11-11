@@ -7,15 +7,14 @@ public class PlayerTurnCardGameState : CardGameState
 {
     [SerializeField] GameObject playerTurnUI = null;
     [SerializeField] Text playerTurnTextUI = null;
+    [SerializeField] Text playerHandValueTextUI = null;
     int playerCardTotal = 0;
 
     int playerTurnCount = 0;
 
     public UserHand playerHand;
 
-    bool playerWin = false;
-    bool playerLose = false;
-    bool playerStand = false;
+    public bool playerStand = false;
 
     public override void Enter()
     {
@@ -26,8 +25,12 @@ public class PlayerTurnCardGameState : CardGameState
         playerTurnCount++;
         playerTurnTextUI.text = "Player turn count: " + playerTurnCount.ToString();
 
-        playerHand.GetCard();
+        
 
+        if(playerHand.hand[8] == null)
+            playerHand.GetCard();
+
+        playerHandValueTextUI.text = "" + playerHand.handValue.ToString();
         //StateMachine.Input.PressedConfirm += OnPressedConfirm;
         /*StateMachine.Input.EndTurn += OnEndTurn;
         StateMachine.Input.PressedStand += OnStand;
