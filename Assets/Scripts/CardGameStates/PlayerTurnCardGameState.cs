@@ -18,24 +18,8 @@ public class PlayerTurnCardGameState : CardGameState
 
     public override void Enter()
     {
-        playerStand = false;
-        //Debug.Log("enter player turn");
-        playerTurnUI.gameObject.SetActive(true);
-
-        playerTurnCount++;
-        playerTurnTextUI.text = "Player turn count: " + playerTurnCount.ToString();
-
-        
-
-        if(playerHand.hand[8] == null)
-            playerHand.GetCard();
-
-        playerHandValueTextUI.text = "" + playerHand.handValue.ToString();
-        //StateMachine.Input.PressedConfirm += OnPressedConfirm;
-        /*StateMachine.Input.EndTurn += OnEndTurn;
-        StateMachine.Input.PressedStand += OnStand;
-        StateMachine.Input.PressWin += OnWin;
-        StateMachine.Input.PressLose += OnLose;*/
+        if(!playerStand)
+            StartTurn();
         
     }
 
@@ -62,8 +46,22 @@ public class PlayerTurnCardGameState : CardGameState
         StateMachine.Input.PressLose -= OnLose;*/
     }
 
+    public void StartTurn()
+    {
+        playerTurnUI.gameObject.SetActive(true);
+
+        playerTurnCount++;
+        playerTurnTextUI.text = "Player turn count: " + playerTurnCount.ToString();
+
+        if(playerHand.hand[8] == null)
+            playerHand.GetCard();
+
+        playerHandValueTextUI.text = "" + playerHand.handValue.ToString();
+    }
+
     public void EndTurn()
     {
+        playerCardTotal = playerHand.GetHandValue();
         //Debug.Log("attempt to enter enemy turn");
         if(playerCardTotal > 20)
             StateMachine.ChangeState<RoundLoseState>();

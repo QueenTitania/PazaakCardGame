@@ -5,7 +5,6 @@ using UnityEngine;
 public class UserHand : MonoBehaviour
 {
 
-    public CardScript cardScript;
     public DeckManager deckScript;
     [SerializeField] public GameObject cardPrefab;
 
@@ -14,6 +13,10 @@ public class UserHand : MonoBehaviour
     public GameObject[] hand;
     public int cardIndex = 0;
     
+    public void Start()
+    {
+        hand = new GameObject[9];
+    }
 
     public void GetCard()
     {
@@ -26,6 +29,23 @@ public class UserHand : MonoBehaviour
         handValue += hand[cardIndex].GetComponent<CardScript>().GetCardValue();
         cardIndex++;
         Debug.Log("hand value: " + handValue);
+    }
+
+    public int GetHandValue()
+    {
+        return handValue;
+    }
+
+    public void ClearHand()
+    {
+        
+        for(int x=hand.Length-1; x>=0; x--)
+        {
+            if(hand[x] != null)
+            Destroy(hand[x]);
+        }
+        handValue = 0;
+        cardIndex = 0;
     }
 
 }
