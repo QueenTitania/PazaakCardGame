@@ -24,7 +24,6 @@ public class CardScript : MonoBehaviour
 
     public void ResetCard()
     {
-        
         gameObject.GetComponent<Image>().sprite = null;
         value = 0;
     }

@@ -16,25 +16,29 @@ public class SetupCardGameState : CardGameState
     public override void Enter()
     {
         //Debug.Log("entering");
+        playerHand.ClearHand();
+        opponentHand.ClearHand();
+
+        GameObject.Find("Deck").GetComponent<DeckManager>().Shuffle();
 
         if(firstRound)
         {
-            opponentSideDeck.ClearHand();
-            playerSideDeck.ClearHand();
+            //opponentSideDeck.ClearHand();
+            //playerSideDeck.ClearHand();
+
             opponentSideDeck.Shuffle();
-            opponentSideDeck.DealHand();
             playerSideDeck.Shuffle();
+
+            opponentSideDeck.DealHand();
             playerSideDeck.DealHand();
+
             firstRound = false;
         }
         
         GameObject.Find("StateController").GetComponent<PlayerTurnCardGameState>().SetPlayerStand(false);
-        opponentHand.handValue = 0;
+        //opponentHand.handValue = 0;
         GameObject.Find("StateController").GetComponent<EnemyTurnCardGameState>().UpdateHandValueText();
-        playerHand.ClearHand();
-        opponentHand.ClearHand();
         
-        GameObject.Find("Deck").GetComponent<DeckManager>().Shuffle();
         activated = false;
     }
 

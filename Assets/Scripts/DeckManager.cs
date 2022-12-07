@@ -5,9 +5,9 @@ using UnityEngine;
 public class DeckManager : MonoBehaviour
 {
     public Sprite[] cardSprites;
-    int[] cardValues = new int[40];
+    public int[] cardValues = new int[40];
 
-    int currentIndex;
+    public int currentIndex;
     
     void Start()
     {
@@ -26,7 +26,7 @@ public class DeckManager : MonoBehaviour
             cardValues[i] = num;
             num++;
         }
-        currentIndex = 1;
+        currentIndex = 0;
     }
 
     public void Shuffle()
@@ -43,21 +43,20 @@ public class DeckManager : MonoBehaviour
             cardValues[j] = value;
         }
     }
-
-    public int DealCard(CardScript cardScript)
-    {
-        cardScript.SetSprite(cardSprites[currentIndex]);
-        cardScript.SetCardValue(cardValues[currentIndex]);
-        currentIndex++;
-        return cardScript.GetCardValue();
-    }
     
     public GameObject DealCard(GameObject cardPrefab, GameObject user)
     {
         GameObject cardInstance = Instantiate(cardPrefab, user.transform , false);
-        cardPrefab.GetComponent<CardScript>().SetSprite(cardSprites[currentIndex]);
-        cardPrefab.GetComponent<CardScript>().SetCardValue(cardValues[currentIndex]);
+        cardInstance.GetComponent<CardScript>().SetSprite(cardSprites[currentIndex]);
+        cardInstance.GetComponent<CardScript>().SetCardValue(cardValues[currentIndex]);
+        Debug.Log(gameObject.ToString() + " " +currentIndex+ cardSprites[currentIndex].ToString() + " " + cardValues[currentIndex].ToString());
         currentIndex++;
+        return cardInstance;
+    }
+
+    public GameObject HandCard(GameObject handCard, GameObject user)
+    {
+        GameObject cardInstance = Instantiate(handCard, user.transform , false);
         return cardInstance;
     }
 

@@ -13,6 +13,7 @@ public class PlayerTurnCardGameState : CardGameState
     int playerTurnCount = 0;
 
     public UserHand playerHand;
+    public SideDeck sideDeck;
 
     public bool playerStand = false;
 
@@ -48,6 +49,7 @@ public class PlayerTurnCardGameState : CardGameState
 
     public void StartTurn()
     {
+        sideDeck.handCardPlayed = false;
         playerTurnUI.gameObject.SetActive(true);
 
         playerTurnCount++;
@@ -72,6 +74,11 @@ public class PlayerTurnCardGameState : CardGameState
     public void SetPlayerStand(bool stand)
     {
         playerStand = stand;
+    }
+
+    public void UpdateHandValueText()
+    {
+        playerHandValueTextUI.text = "" + playerHand.GetHandValue().ToString();
     }
 
     /*

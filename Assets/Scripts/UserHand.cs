@@ -20,15 +20,17 @@ public class UserHand : MonoBehaviour
 
     public void GetCard()
     {
-        //int cardValue = deckScript.DealCard(hand[cardIndex].GetComponent<CardScript>());
         hand[cardIndex] = deckScript.DealCard(cardPrefab, this.gameObject);
-        //int cardValue = hand[cardIndex].GetComponent<CardScript>().GetCardValue();
-
-        //hand[cardIndex].GetComponent<Renderer>().enabled = true;
-        cardPrefab.GetComponent<Renderer>().enabled = true;
         handValue += hand[cardIndex].GetComponent<CardScript>().GetCardValue();
         cardIndex++;
-        Debug.Log("hand value: " + handValue);
+        //Debug.Log("hand value: " + handValue);
+    }
+
+    public void GetHandCard(GameObject handCard, GameObject user)
+    {
+        hand[cardIndex] = deckScript.HandCard(handCard, user);
+        handValue += hand[cardIndex].GetComponent<CardScript>().GetCardValue();
+        cardIndex++;
     }
 
     public int GetHandValue()

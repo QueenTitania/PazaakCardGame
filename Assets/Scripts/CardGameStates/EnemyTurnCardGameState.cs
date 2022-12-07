@@ -24,8 +24,6 @@ public class EnemyTurnCardGameState : CardGameState
 
         EnemyTurnBegan?.Invoke();
 
-        
-
         if(opponentHand.hand[8] == null)
             opponentHand.GetCard();
 
