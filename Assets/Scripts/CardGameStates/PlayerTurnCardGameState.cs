@@ -8,6 +8,7 @@ public class PlayerTurnCardGameState : CardGameState
     [SerializeField] GameObject playerTurnUI = null;
     [SerializeField] Text playerTurnTextUI = null;
     [SerializeField] Text playerHandValueTextUI = null;
+    [SerializeField] public GameObject StandTextUI = null;
     int playerCardTotal = 0;
 
     int playerTurnCount = 0;
@@ -30,6 +31,7 @@ public class PlayerTurnCardGameState : CardGameState
     {
         if(playerStand)
         {
+            StandTextUI.SetActive(true);
             StateMachine.ChangeState<EnemyTurnCardGameState>();
         }
         if(playerHand.GetHandValue() == 20)
@@ -43,7 +45,7 @@ public class PlayerTurnCardGameState : CardGameState
     public override void Exit()
     {
         playerTurnUI.gameObject.SetActive(false);
-        Debug.Log("exiting player turn");
+        //Debug.Log("exiting player turn");
         
 
         //StateMachine.Input.PressedConfirm -= OnPressedConfirm;
@@ -56,6 +58,7 @@ public class PlayerTurnCardGameState : CardGameState
     public void StartTurn()
     {
         sideDeck.handCardPlayed = false;
+        StandTextUI.SetActive(false);
         playerTurnUI.gameObject.SetActive(true);
 
         playerTurnCount++;

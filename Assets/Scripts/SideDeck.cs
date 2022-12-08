@@ -94,6 +94,7 @@ public class SideDeck : MonoBehaviour
             playerTurn.UpdateHandValueText();
             opponentTurn.UpdateHandValueText();
             hand[currentCard].GetComponent<Image>().sprite = null;
+            hand[currentCard].GetComponent<CardScript>().value = 0;
             hand[currentCard].GetComponent<Button>().interactable = false;
             handCardPlayed = true;
         }
