@@ -11,11 +11,19 @@ public class WinTracker : MonoBehaviour
     public GameObject win2Img;
     public GameObject win3Img;
 
+    public AudioSource winAudio;
+
+    public void Start()
+    {
+        winAudio = GetComponent<AudioSource>();
+    }
+
     public void UpdateWinUI(int wins)
     {
         if(wins >= 1)
         {
             win1Img.SetActive(true);
+            winAudio.Play();
         }
         if(wins >= 2)
         {
