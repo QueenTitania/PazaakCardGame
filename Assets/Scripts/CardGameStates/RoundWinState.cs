@@ -7,6 +7,7 @@ public class RoundWinState : CardGameState
 {
     [SerializeField] Text roundWinTextUI = null;
     [SerializeField] float waitTime = 1f;
+    public WinTracker winTracker;
 
     int playerWins = 0;
     
@@ -15,6 +16,7 @@ public class RoundWinState : CardGameState
         Debug.Log("enter round win state");
         roundWinTextUI.gameObject.SetActive(true);
         playerWins++;
+        winTracker.UpdateWinUI(playerWins);
         StartCoroutine(ReadTimeRoutine(waitTime));
     }
 

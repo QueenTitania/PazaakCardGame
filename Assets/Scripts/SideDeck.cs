@@ -12,6 +12,7 @@ public class SideDeck : MonoBehaviour
 
     public DeckManager deck;
     public PlayerTurnCardGameState playerTurn;
+    public EnemyTurnCardGameState opponentTurn;
 
     int currentIndex = 0;
     int currentCard;
@@ -73,7 +74,7 @@ public class SideDeck : MonoBehaviour
         GameObject cardInstance = Instantiate(cardPrefab, user.transform , false);
         cardInstance.GetComponent<CardScript>().SetSprite(cardSprites[currentIndex]);
         cardInstance.GetComponent<CardScript>().SetCardValue(cardValues[currentIndex]);
-        Debug.Log(gameObject.ToString() + " " +currentIndex+ cardSprites[currentIndex].ToString() + " " + cardValues[currentIndex].ToString());
+        //Debug.Log(gameObject.ToString() + " " +currentIndex+ cardSprites[currentIndex].ToString() + " " + cardValues[currentIndex].ToString());
         currentIndex++;
         return cardInstance;
 
@@ -91,6 +92,7 @@ public class SideDeck : MonoBehaviour
             targetHand.GetComponent<UserHand>().GetHandCard(hand[currentCard], targetHand);
             //targetHand.GetComponent<UserHand>().handValue += hand[currentCard].GetComponent<CardScript>().value;
             playerTurn.UpdateHandValueText();
+            opponentTurn.UpdateHandValueText();
             hand[currentCard].GetComponent<Image>().sprite = null;
             hand[currentCard].GetComponent<Button>().interactable = false;
             handCardPlayed = true;

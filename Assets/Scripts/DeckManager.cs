@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DeckManager : MonoBehaviour
 {
@@ -49,14 +50,21 @@ public class DeckManager : MonoBehaviour
         GameObject cardInstance = Instantiate(cardPrefab, user.transform , false);
         cardInstance.GetComponent<CardScript>().SetSprite(cardSprites[currentIndex]);
         cardInstance.GetComponent<CardScript>().SetCardValue(cardValues[currentIndex]);
-        Debug.Log(gameObject.ToString() + " " +currentIndex+ cardSprites[currentIndex].ToString() + " " + cardValues[currentIndex].ToString());
+        //Debug.Log(gameObject.ToString() + " " +currentIndex+ cardSprites[currentIndex].ToString() + " " + cardValues[currentIndex].ToString());
         currentIndex++;
+        //Debug.Log(currentIndex);
+        if(currentIndex > cardValues.Length-1)
+        {
+            currentIndex = 0;
+            Shuffle();
+        }
         return cardInstance;
     }
 
     public GameObject HandCard(GameObject handCard, GameObject user)
     {
         GameObject cardInstance = Instantiate(handCard, user.transform , false);
+        Destroy(cardInstance.GetComponent<Button>());
         return cardInstance;
     }
 

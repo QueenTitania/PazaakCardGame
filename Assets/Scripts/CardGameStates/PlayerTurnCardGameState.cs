@@ -14,6 +14,7 @@ public class PlayerTurnCardGameState : CardGameState
 
     public UserHand playerHand;
     public SideDeck sideDeck;
+    public EnemyTurnCardGameState opponent;
 
     public bool playerStand = false;
 
@@ -21,7 +22,8 @@ public class PlayerTurnCardGameState : CardGameState
     {
         if(!playerStand)
             StartTurn();
-        
+        else
+            EndTurn();
     }
 
     public override void Tick()
@@ -30,7 +32,11 @@ public class PlayerTurnCardGameState : CardGameState
         {
             StateMachine.ChangeState<EnemyTurnCardGameState>();
         }
-            
+        if(playerHand.GetHandValue() == 20)
+        {
+            playerStand = true;
+            EndTurn();
+        }
 
     }
 
@@ -63,8 +69,8 @@ public class PlayerTurnCardGameState : CardGameState
 
     public void EndTurn()
     {
-        playerCardTotal = playerHand.GetHandValue();
-        //Debug.Log("attempt to enter enemy turn");
+        playerCardTotal = playerHand.handValue;
+
         if(playerCardTotal > 20)
             StateMachine.ChangeState<RoundLoseState>();
         else

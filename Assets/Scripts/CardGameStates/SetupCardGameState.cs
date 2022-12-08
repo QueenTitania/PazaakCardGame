@@ -6,8 +6,12 @@ public class SetupCardGameState : CardGameState
 {
     public SideDeck opponentSideDeck;
     public SideDeck playerSideDeck;
+
     public UserHand playerHand;
     public UserHand opponentHand;
+
+    public WinTracker playerWinTracker;
+    public WinTracker opponentWinTracker;
 
 
     bool activated = false;
@@ -19,12 +23,14 @@ public class SetupCardGameState : CardGameState
         playerHand.ClearHand();
         opponentHand.ClearHand();
 
-        GameObject.Find("Deck").GetComponent<DeckManager>().Shuffle();
-
         if(firstRound)
         {
+            GameObject.Find("Deck").GetComponent<DeckManager>().Shuffle();
             //opponentSideDeck.ClearHand();
             //playerSideDeck.ClearHand();
+
+            playerWinTracker.ResetWinUI();
+            opponentWinTracker.ResetWinUI();
 
             opponentSideDeck.Shuffle();
             playerSideDeck.Shuffle();
@@ -36,6 +42,7 @@ public class SetupCardGameState : CardGameState
         }
         
         GameObject.Find("StateController").GetComponent<PlayerTurnCardGameState>().SetPlayerStand(false);
+        GameObject.Find("StateController").GetComponent<EnemyTurnCardGameState>().SetOpponentStand(false);
         //opponentHand.handValue = 0;
         GameObject.Find("StateController").GetComponent<EnemyTurnCardGameState>().UpdateHandValueText();
         
